@@ -1,27 +1,43 @@
 package com.alura.limitecartao.objeto;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CartaoDeCredito {
     private double limiteDoCartao;
+    private double restanteDoLimite;
+    private List<ItensDeCompra> listaDeCompra = new ArrayList<ItensDeCompra>();
 
-    public void recebeLimiteDoCartao(){
-        System.out.println("Qual o limite do cartão?");
-        Scanner leitura = new Scanner(System.in);
-        limiteDoCartao = leitura.nextDouble();
+    public List<ItensDeCompra> getListaDeCompra() {
+        return listaDeCompra;
     }
 
     public double getLimiteDoCartao(){
         return limiteDoCartao;
     }
 
+    public CartaoDeCredito(double limiteDoCartao){
+        this.limiteDoCartao = limiteDoCartao;
+        this.restanteDoLimite = limiteDoCartao;
+    }
+
     public boolean subtraiLimiteDoCartao(double valor){
-        if (this.limiteDoCartao >= valor){
-            this.limiteDoCartao -= valor;
-            return false;
+        if (this.restanteDoLimite >= valor){
+            this.restanteDoLimite -= valor;
+            return true;
         } else {
             System.out.println("\nLimite insuficiente");
-            return true;
+            return false;
         }
     }
+
+    public void adicionarItemAListaDeCompra(ItensDeCompra item) {
+        this.listaDeCompra.add(item);
+    }
+
+    public void ordenaListaDeCompra(){
+        Collections.sort(this.listaDeCompra);
+    }
+    
 }
